@@ -5,36 +5,27 @@ public class PokemonArena {
     public static ArrayList team;
 
     public static void main(String[] args) throws FileNotFoundException {
-        File pokemon_file = new File("src/data/pokemon.txt");
-        Scanner text = new Scanner(pokemon_file);
-        String pokemons = "";
-        while (text.hasNextLine()) {
-            pokemons += text.nextLine() + "\n";
-        }
-        String[] pokemon_stats = pokemons.split("\n");
-        ArrayList team = select_team(pokemon_stats);
-        System.arraycopy(pokemon_stats, 1, pokemon_stats, 0, pokemon_stats.length - 1);
+        // String[] pokemon_stats = pokemons.split("\n");
+        String[] pokemon = new ReadFile("pokemon.txt").getArray();
+
+        ArrayList team = select_team(pokemon);
+        System.arraycopy(pokemon, 1, pokemon, 0, pokemon.length - 1);
         ArrayList<Player> finalTeam = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            finalTeam.add(new Player(pokemon_stats[(int) team.get(i)]));
+            finalTeam.add(new Player(pokemon[(int) team.get(i)]));
         }
-        battlePhase(finalTeam, team, pokemon_stats);
+        battlePhase(finalTeam, team, pokemon);
     }
 
     private static ArrayList select_team(String[] pokemon_choice) {
         ArrayList<Integer> team = new ArrayList<>();
+        // ArrayList<Player> team = new ArrayList<>();
         int counter = 0;
         String[] selection = new String[pokemon_choice.length - 1];
-        for (int i = 0; i < pokemon_choice.length; i++) {
-            if (counter > 0) {
+        for (int i = 1; i < pokemon_choice.length; i++) {
                 selection[i - 1] = pokemon_choice[i].split(",")[0];
-            }
-            counter++;
-        }
-        counter = 0;
-        for (String i : selection) {
-            counter++;
-            System.out.println(counter + ": " + i);
+                counter++;
+                System.out.println(counter + ": " + selection[i - 1]);
         }
         while (team.size() < 4) {
             System.out.print("Which pokemon would you like?: ");
@@ -53,15 +44,15 @@ public class PokemonArena {
         return team;
     }
 
-    private static void battlePhase(ArrayList<Player> team, ArrayList<Integer> usedPokemon, String[] oldlistOfPokemon) {
-        String[] listOfPokemon = new String[oldlistOfPokemon.length - 1];
-        System.arraycopy(oldlistOfPokemon, 0, listOfPokemon, 0, listOfPokemon.length);
+    private static void battlePhase(ArrayList<Player> team, ArrayList<Integer> usedPokemon, String[] listOfPokemon) {
+        String[] listOfPokemon = new String[listOfPokemon.length - 1];
+        System.arraycopy(listOfPokemon, 0, listOfPokemon, 0, listOfPokemon.length);
         Enemy enemy;
         while (true) {
             Random rand = new Random();
-            int newEnemy = rand.nextInt(oldlistOfPokemon.length);
+            int newEnemy = rand.nextInt(listOfPokemon.length);
             if (!usedPokemon.contains(newEnemy)) {
-                enemy = new Enemy(oldlistOfPokemon[newEnemy]);
+                enemy = new Enemy(listOfPokemon[newEnemy]);
 //                System.out.println(newEnemy);
                 break;
             }
@@ -70,7 +61,7 @@ public class PokemonArena {
         printTeamSelection(team, enemy);
         System.out.println("It is the player's turn to fight!!");
         Player fighter = team.get(iChooseYou(team));
-        while (usedPokemon.size() < oldlistOfPokemon.length && team.size() > 0) {
+        while (usedPokemon.size() < listOfPokemon.length && team.size() > 0) {
             fighter.Battle(enemy);
             if (enemy.getHp() > 0) {
                 System.out.println();
@@ -80,10 +71,10 @@ public class PokemonArena {
                 System.out.println(enemy.getName() + " has fainted!!");
                 while (true) {
                     Random rand = new Random();
-                    int newEnemy = rand.nextInt(oldlistOfPokemon.length);
+                    int newEnemy = rand.nextInt(listOfPokemon.length);
                     if (!usedPokemon.contains(newEnemy)) {
-                        enemy = new Enemy(oldlistOfPokemon[newEnemy]);
-                        System.out.println(newEnemy);
+                        enemy = new Enemy(listOfPokemon[newEnemy]);
+                        // System.out.println(newEnemy);
                         usedPokemon.add(newEnemy);
                         break;
                     }
@@ -100,13 +91,7 @@ public class PokemonArena {
                 fighter = team.get(iChooseYou(team));
             }
         }
-        if (team.size() == 0) {
-            System.out.println("GAME OVER");
-            System.out.println("YOU LOST");
-        } else {
-            System.out.println("YOU WON!");
-            System.out.println("CONGRATULATIONS");
-        }
+        System.out.println((team.size() == 0 ? "GAME OVER\nYOU LOST" : "YOU WON!\nCONGRATULATIONS"));
     }
 
     public static void printTeamSelection(ArrayList<Player> team, Enemy enemy) {
@@ -128,8 +113,7 @@ public class PokemonArena {
             if (chosen + 1 > team.size() || chosen + 1 <= 0) {
                 System.out.println("Please make a valid entry!!");
             } else {
-                System.out.println();
-                System.out.println();
+                System.out.println("\n\n");
                 System.out.println(team.get(chosen).getName() + "!! I choose you!");
                 return chosen;
             }
