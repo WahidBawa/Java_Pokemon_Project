@@ -44,15 +44,15 @@ public class PokemonArena {
         return team;
     }
 
-    private static void battlePhase(ArrayList<Player> team, ArrayList<Integer> usedPokemon, String[] listOfPokemon) {
-        String[] listOfPokemon = new String[listOfPokemon.length - 1];
-        System.arraycopy(listOfPokemon, 0, listOfPokemon, 0, listOfPokemon.length);
+    private static void battlePhase(ArrayList<Player> team, ArrayList<Integer> usedPokemon, String[] oldlistOfPokemon) {
+        String[] listOfPokemon = new String[oldlistOfPokemon.length - 1];
+        System.arraycopy(oldlistOfPokemon, 0, listOfPokemon, 0, listOfPokemon.length);
         Enemy enemy;
         while (true) {
             Random rand = new Random();
-            int newEnemy = rand.nextInt(listOfPokemon.length);
+            int newEnemy = rand.nextInt(oldlistOfPokemon.length);
             if (!usedPokemon.contains(newEnemy)) {
-                enemy = new Enemy(listOfPokemon[newEnemy]);
+                enemy = new Enemy(oldlistOfPokemon[newEnemy]);
 //                System.out.println(newEnemy);
                 break;
             }
@@ -61,28 +61,28 @@ public class PokemonArena {
         printTeamSelection(team, enemy);
         System.out.println("It is the player's turn to fight!!");
         Player fighter = team.get(iChooseYou(team));
-        while (usedPokemon.size() < listOfPokemon.length && team.size() > 0) {
+        while (usedPokemon.size() < oldlistOfPokemon.length && team.size() > 0) {
             fighter.Battle(enemy);
             if (enemy.getHp() > 0) {
-                System.out.println();
-                System.out.println("It is the enemy's turn to fight!!");
+                // System.out.println();
+                System.out.println("\nIt is the enemy's turn to fight!!");
                 enemy.Battle(fighter);
             } else {
                 System.out.println(enemy.getName() + " has fainted!!");
                 while (true) {
                     Random rand = new Random();
-                    int newEnemy = rand.nextInt(listOfPokemon.length);
+                    int newEnemy = rand.nextInt(oldlistOfPokemon.length);
                     if (!usedPokemon.contains(newEnemy)) {
-                        enemy = new Enemy(listOfPokemon[newEnemy]);
-                        // System.out.println(newEnemy);
+                        enemy = new Enemy(oldlistOfPokemon[newEnemy]);
+                        System.out.println(newEnemy);
                         usedPokemon.add(newEnemy);
                         break;
                     }
                 }
             }
             if (fighter.getHp() <= 0) {
-                System.out.println();
-                System.out.println(fighter.getName() + " has died!!");
+                // System.out.println();
+                System.out.println("\n" + fighter.getName() + " has died!!");
                 team.remove(fighter);
                 if (team.size() < 1) {
                     break;
