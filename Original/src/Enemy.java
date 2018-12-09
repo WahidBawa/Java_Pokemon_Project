@@ -11,6 +11,10 @@ public class Enemy extends Pokemon{
         int choice = rand.nextInt(this.getNumAttacks());
         System.out.println(this.getName() + " uses " + this.getAttacks().get(choice).get(0) + " on " + enemy.getName());
         int damage = Integer.valueOf(this.getAttacks().get(choice).get(2));
+        if (this.getType() == enemy.getWeakness()){
+            damage *= 2;
+            System.out.println(this.getName() + "'s attack is super effective!");
+        }
         int newEnemyHp = enemy.getHp() - damage;
         System.out.println(this.getName() + " inflicts " + damage + " damage to " + enemy.getName() + "!!");
         enemy.setHp(newEnemyHp);

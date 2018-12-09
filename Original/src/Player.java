@@ -16,6 +16,11 @@ public class Player extends Pokemon{
 //            System.out.println("Attack Damages: " + this.getAttacks().get(choice - 1).get(2));
                 if (choice != 0){
                     int damage = Integer.valueOf(this.getAttacks().get(choice - 1).get(2));
+                    if (this.getType() == enemy.getWeakness()){
+                        damage *= 2;
+                        System.out.println(this.getName() + "'s attack is super effective!");
+                        
+                    }
                     int newEnemyHp = enemy.getHp() - damage;
                     enemy.setHp(newEnemyHp);
 //            System.out.println("ENEMY HP: " + enemy.getHp());

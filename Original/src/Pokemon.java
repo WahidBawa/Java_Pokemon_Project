@@ -6,7 +6,7 @@ public class Pokemon {
     private String type;
     private String resistance;
     private String weakness;
-
+    private int damage;
     private int numAttacks;
 
     private ArrayList<ArrayList<String>> attacks = new ArrayList<>();
