@@ -1,40 +1,39 @@
 import java.util.*;
 public class Pokemon {
-    private String[] stats;
-    private String name;
-    private int hp;
-    private String type;
-    private String resistance;
-    private String weakness;
-    private int damage;
-    private int numAttacks;
-    private int energy = 50;
-    private boolean retreat = false;
-    private boolean stunned = false;
-    private boolean disabled = false;
-    private boolean wildStormed = false;
-    private ArrayList<ArrayList<String>> attacks = new ArrayList<>();
-    public Pokemon(String pokemonStat) {
-        stats = pokemonStat.split(",");
-        name = stats[0];
-        hp = Integer.valueOf(stats[1]);
-        type = stats[2];
-        resistance = stats[3];
-        weakness = stats[4];
-        numAttacks = Integer.valueOf(stats[5]);
-        for (int i = 0; i < numAttacks; i++) {
-            ArrayList<String> tmpAttack = new ArrayList<>();
-            for (int n = 6 + (4 * i); n < (6 + (4 * i) + 4); n++) {
-                tmpAttack.add(stats[n]);
+    private String[] stats; // String array which will store all the stats of the pokemon
+    private String name; // this will store the name of the pokemon
+    private int hp; // stores the HP of the pokemon
+    private String type; // stores the type of the pokemon
+    private String resistance; // stores which type this pokemon is resistant to
+    private String weakness; // this will store which type this pokemon is weak against
+    private int numAttacks; // this will store the number of attacks this pokemon has
+    private int energy = 50; // this will store the energy of this pokemon
+    private boolean retreat = false; // this will check whether the user wants to retreat their pokemon or not
+    private boolean stunned = false; // will check if the pokemon is stunned
+    private boolean disabled = false; // will check if the pokemon has been disabled
+    private boolean wildStormed = false; // will check if the pokemon is wildstormed
+    private ArrayList<ArrayList<String>> attacks = new ArrayList<>(); // this will store the attacks as an ArrayList that contains String ArrayLists
+    public Pokemon(String pokemonStat) { // this is the constructor, this will take the stats and attribute them to their seperate variables
+        stats = pokemonStat.split(","); // this will split the String that contains the stats of the pokemon
+        name = stats[0]; // this will be the name of the pokemon
+        hp = Integer.valueOf(stats[1]); // gets the HP of the pokemon
+        type = stats[2]; // gets the type of the pokemon
+        resistance = stats[3]; // gets the resistance of the pokemon
+        weakness = stats[4]; // gets the weakness of the pokemon
+        numAttacks = Integer.valueOf(stats[5]); // this gets the number of attacks of the pokemon
+        for (int i = 0; i < numAttacks; i++) { // This will loop through the attacks
+            ArrayList<String> tmpAttack = new ArrayList<>(); // this will store the attack stats
+            for (int n = 6 + (4 * i); n < (6 + (4 * i) + 4); n++) { // this will go through the loop and get the information
+                tmpAttack.add(stats[n]); // adds the stats into the ArrayList
             }
-            attacks.add(tmpAttack);
+            attacks.add(tmpAttack); //this will add the String ArrayList into a master ArrayList which will hold all of the attacks
         }
     }
-    
+    // The rest of these methods below are a series of "getters" and "setters" used to access private variables of the pokemon securely
     public boolean getStun(){return stunned;}
     
     public void setStun(boolean stun){stunned = stun;}
-    
+
     public boolean getDisable(){return disabled;}
     
     public void setDisable(boolean disabled){this.disabled = disabled;}
