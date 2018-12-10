@@ -1,3 +1,0 @@
-exec javac ~/Documents/GitHub/Java_Pokemon_Project/src/PokemonArena.java
-exec java ~/Documents/GitHub/Java_Pokemon_Project/src/PokemonArena
-exec compiler ~/Documents/GitHub/Java_Pokemon_Project/src/PokemonArena.java
