@@ -12,31 +12,36 @@ public class PokemonArena {
     }
 
     public static ArrayList<Player> select_team(String[] pokemon, ArrayList<Player> team) {
-        int counter = 0;
-        String[] selection = new String[pokemon.length];
-        for (int i = 0; i < pokemon.length; i++) { // This will display the name and the number of the pokemon
-                                                   // to let the user choose a pokemon
-                selection[i] = pokemon[i].split(",")[0];
-                counter++;
-                System.out.println(counter + ": " + selection[i]);
-        }
 
         ArrayList<String> chosen_pokemon = new ArrayList<>(); // This ArrayList will store the chosen pokemon
 
+        int counter = 0;
         while (team.size() < 4) { // will run while the team is not at max capacity
+            String[] selection = new String[pokemon.length];
+            for (int i = 0; i < pokemon.length; i++) { // This will display the name and the number of the pokemon
+                                                       // to let the user choose a pokemon
+                    selection[i] = pokemon[i].split(",")[0];
+                    counter++;
+                    System.out.println(counter + ": " + selection[i]);
+            }
+            counter = 0; // resets the counter
             System.out.print("Which pokemon would you like? (Spaces Left: " + (4 - team.size()) + "): ");
             Scanner input = new Scanner(System.in); // creates a Scanner object for input from user
             int indexOfSelection = input.nextInt(); // this is the choice of the user
-            if (indexOfSelection > 0 && indexOfSelection < pokemon.length) { // will check if the choice is valid
+            if (indexOfSelection > 0 && indexOfSelection <= pokemon.length) { // will check if the choice is valid
                 Player chosen = new Player(pokemon[indexOfSelection - 1]); // creates a Player object
                 if (!chosen_pokemon.contains(chosen.getName())) { // checks if the pokemon has been chosen before by user
                     chosen_pokemon.add(chosen.getName()); // will add the chosen pokemon to ArrayList to check for duplicates
                     try{
                         String[] pokemonAscii = new ReadFile("./images/" + chosen.getName().toLowerCase() + ".txt").getArray();
-                        for (String i : pokemonAscii) System.out.println(i);                    
-                    }catch (FileNotFoundException e){
+                        for (String i : pokemonAscii) System.out.println(i); // this prints out the ascii art                    
+                    }catch (FileNotFoundException e){ // catches the exception
                         System.out.println("pokemon doesn't exist");
                     }
+                    //waits for the player to press enter so that they can see the pokemon ascii
+                    System.out.print("Press <Enter>");
+                    Scanner wait = new Scanner(System.in);
+                    wait.nextLine();
                     team.add(chosen); // adds the chosen pokemon to team
                 } else System.out.println("This Pokemon is already in the team!!");
             } else System.out.println("Please choose one of the selections");
@@ -72,6 +77,8 @@ public class PokemonArena {
                     if (usedPokemon.size() == listOfPokemon.length) break; // if the last pokemon has fainted then the loop will break
                     System.out.println(listOfPokemon.length - usedPokemon.size() + " pokemon are left!");
                     for (Player i : team) i.setEnergy(50); // this will set the energy
+                    System.out.println("\n All of your pokemon have gained 20 HP for defeating " + enemy.getName());
+                    for (Player i : team) i.setHp(i.getHp() + 20 > 50 ? 50 : i.getHp() + 20); // this will add 20 to the pokemon's hp for defeating enemy
                     enemy = getNewEnemy(listOfPokemon, usedPokemon); // will create a random enemy pokemon object
                     printTeamSelection(team, enemy);
                     fighter = team.get(choosePokemon(team)); // this will let the player choose a pokemon to battle the new enemy
@@ -84,9 +91,7 @@ public class PokemonArena {
                 System.out.println("\nIt is the enemy's turn to fight!!");
                 enemy.battle(fighter); // the enemy pokemon will battle with the user's selected pokemon
                 //the following status effects will be set to false as they last for only one turn 
-                enemy.setStun(false);
-                enemy.setDisable(false);
-                enemy.setRetreat(false);
+                enemy.setStun(false); // this will reset the stun once the enemy's turn is over
                 enemyTurnDone = true;
                 turn = 1 - turn; // this will toggle the turn
                 if (fighter.getHp() <= 0) { // if the user's pokemon were to faint
@@ -97,7 +102,7 @@ public class PokemonArena {
                     }
                     printTeamSelection(team, enemy);
                     fighter = team.get(choosePokemon(team)); // user gets to choose new pokemon to use
-                    // turn = rand.nextInt(2); // will randomly select which side goes first
+                    turn = rand.nextInt(2); // will randomly select which side goes first
                 }
             }
             if (playerTurnDone && enemyTurnDone){

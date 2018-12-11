@@ -17,11 +17,17 @@ import java.util.Scanner;
  *
  * Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
  */
-public class getImage {
+public class Main{
+    public static void main(String[] args){
+        System.out.println("wassup");
+        new getImage();
+    }
+}
+class getImage {
     public static void getImages() {
         BufferedImage pokemonImage;  // Creating a bufferedimage object to load the file later
         try {
-            Scanner input = new Scanner(new File("allPokemon.txt"));
+            Scanner input = new Scanner(new File("pokemon.txt"));
             String pokeName;
             int width;
             int height;
@@ -37,10 +43,10 @@ public class getImage {
                 connection = (HttpURLConnection) url.openConnection();  // Creating a new http connection
                 connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31");  // Adding a user-agent so the program wont be blocked
                 pokemonImage = ImageIO.read(connection.getInputStream());  // Downloading the image
-                out = new PrintWriter(new File("" + pokeName + ".txt"));
+                out = new PrintWriter(new File(pokeName + ".txt"));
                 width = pokemonImage.getWidth();
                 height = pokemonImage.getHeight();
-`
+// `
                 for (int y = 0; y < height; y++) {  // Iterating through every pixel converting them to text
                     for (int x = 0; x < width; x++) {
                         color = new Color(pokemonImage.getRGB(x, y));
@@ -66,6 +72,7 @@ public class getImage {
 
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("your mum");
         }
     }
 }

@@ -7,8 +7,13 @@ public class ReadFile{ // this class will be used to read in a file
 		File file = new File(f); // this will open a file using the passed in directory
         Scanner text = new Scanner(file); // creates a scanner object which will be used to read the lines of the file
         text.nextLine(); // this is to get rid of the first line as it is not needed
+		String currLine; // this is the current line
         while (text.hasNextLine()) { // while there is a line to be read in the file
-            lines += text.nextLine() + "\n"; // this will store the lines in a String seperated by \n
+            currLine = text.nextLine();
+            // the if statement is to get rid of long spaces in ascii art
+            if (!currLine.equals("                                                                                                                ")){
+	            lines += currLine + "\n"; // this will store the lines in a String seperated by \n
+            }
         }
 	}
 
