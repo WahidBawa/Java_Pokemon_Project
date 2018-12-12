@@ -49,7 +49,7 @@ public class Enemy extends Pokemon{ // this is a child class of the Pokemon pare
                             break;
                         }
                     }
-                }else System.out.println(this.getName() + " inflicts " + damage + " damage to " + enemy.getName() + "!!");
+                }else System.out.println(this.getName() + " inflicts " + damage + " damage to " + enemy.getName() + "!!"); // if no wild storm then the damage will be displayed normally
                 if (this.getType().equals(enemy.getWeakness()) && damage != 0){ // this will check if the user type is the enemy's weakness
                     System.out.println("This attack is super effective!!");
                 } else if (this.getType().equals(enemy.getResistance()) && damage != 0){ // checks if the enemy is resistant to user's pokemon
