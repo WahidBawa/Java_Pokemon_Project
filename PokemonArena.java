@@ -1,11 +1,19 @@
+/*
+    Creator: Wahid Bawa
+    Purpose: The purpose of this project is to create a cli-based Pokemon game in which you can have a series of pokemon battles using four personally
+             selected pokemon and having them battle the rest of the remaining pokemon.
+    Credits: Ryan Zhang && Henry Tu for supplying me with the ascii versions of the pokemon
+*/
 import java.io.*;
 import java.util.*;
 
 public class PokemonArena {
     public static ArrayList<Player> team = new ArrayList<>(); //creates ArrayList that holds Player type objects
     public static void main(String[] args) throws FileNotFoundException{ // main method
-        String[] pokemon = new ReadFile("./data/pokemon.txt").getArray(); // Creates a String array which stores the lines from file
-        // String[] pokemon = new ReadFile("./data/allPokemon.txt").getArray(); // Creates a String array which stores the lines from file
+        // use the first one for testing (USE GENGAR AS HE IS GOD TYPE); second for normal playing; 
+        // String[] pokemon = new ReadFile("./data/pokemon.txt").getArray(); // Creates a String array which stores the lines from file
+        String[] pokemon = new ReadFile("./data/normalPokemon.txt").getArray(); // Creates a String array which stores the lines from file
+        
         String[] title = new ReadFile("./texts/title.txt").getArray(); // Creates a String array which stores the lines from file
         for (String i : title) System.out.println(i); // displays the title ascii art
         team = select_team(pokemon, team); // this will let the player create a team
@@ -107,7 +115,7 @@ public class PokemonArena {
             }
             if (playerTurnDone && enemyTurnDone){
                 System.out.println("All pokemon's energy will increase by 10!!");
-                for (Player i : team) i.setEnergy(i.getEnergy() + (i.getEnergy() == 50 ? 0 : 10)); // this will add ten to the player's pokemon
+                for (Player i : team) i.setEnergy(i.getEnergy() + 10 > 50 ? 50 : i.getEnergy() + 10); // this will add ten to the player's pokemon
                 enemy.setEnergy(enemy.getEnergy() + (enemy.getEnergy() == 50 ? 0 : 10)); // increases enemy's energy
                 playerTurnDone = enemyTurnDone = false;
             }
@@ -120,8 +128,6 @@ public class PokemonArena {
         }catch (FileNotFoundException e){ // catches the exception
             System.out.println("file doesn't exist");
         }
-        // String[] loseText = new ReadFile("./texts/" + chosen.getName().toLowerCase() + ".txt").getArray();
-        // for (String i : winText) System.out.println(i);
     }
 
     public static void printTeamSelection(ArrayList<Player> team, Enemy enemy) {
