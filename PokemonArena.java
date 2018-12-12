@@ -73,7 +73,7 @@ public class PokemonArena {
                 fighter.battle(enemy); // the player's pokemon will battle the enemy pokemon
                 if (fighter.getRetreat()){ // if the user chooses to retreat, they will be allowed to choose another pokemon
                     printTeamSelection(team, enemy);
-                    fighter = team.get(choosePokemon(team)); // lets the user choose a pokemon out of their team
+                    fighter = team.get(choosePokemon(team, fighter)); // lets the user choose a pokemon out of their team
                 }
                 //the following status effects will be set to false as they last for only one turn 
                 fighter.setStun(false);
@@ -156,7 +156,23 @@ public class PokemonArena {
             }
         }
     }
-    
+    public static int choosePokemon(ArrayList<Player> team, Player fighter) { //this is method overload, passes in Player along with team
+        int chosen;
+        while (true) {
+            System.out.print("Choose a Pokemon: ");
+            Scanner input = new Scanner(System.in); // gets input from the user
+            chosen = input.nextInt() - 1; // stores the chosen pokemon
+            if (team.get(chosen).getName().equals(fighter.getName())){
+                System.out.println("You can't switch back to " + fighter.getName() + "!!!");
+            } else if (chosen + 1 > team.size() || chosen + 1 <= 0) { // will check if a valid entry was made
+                System.out.println("Please make a valid entry!!");
+            } else {
+                System.out.println("\n");
+                System.out.println(team.get(chosen).getName() + "!! I choose you!");
+                return chosen; // this returns the chosen pokemon
+            }
+        }
+    }
     public static Enemy getNewEnemy(String[] listOfPokemon, ArrayList<String> usedPokemon){
         Enemy enemy;
         Enemy randEnemy;

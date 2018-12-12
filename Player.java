@@ -95,9 +95,14 @@ public class Player extends Pokemon{ // this is a child class which is the child
                 System.out.println("You passed");
                 endTurn = true;
             }else if (choice == 2){ // if the user decides to retreat
-                System.out.println(this.getName() + " is retreating!!");
-                this.setRetreat(true); // sets retreat boolean to true
-                endTurn = true; // ends the turn
+                if (!this.getStun()){
+                    System.out.println(this.getName() + " is retreating!!");
+                    this.setRetreat(true); // sets retreat boolean to true
+                    endTurn = true; // ends the turn
+                }else{
+                    System.out.println("\n" + this.getName() + " is stunned!! You can't retreat!!\n");
+                    continue;
+                }
             }
         }
     }
