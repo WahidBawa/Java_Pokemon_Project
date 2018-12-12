@@ -11,12 +11,13 @@ public class Pokemon{
     private boolean retreat, stunned, disabled = false; // retreat will check whether the user wants to retreat their pokemon or not
                                                         // stunned will check if the pokemon is stunned
                                                         // disabled will check if the pokemon has been disabled
-    // private String[] ascii = new ReadFile("./images/" + this.getName().toLowerCase() + ".txt").getArray();
     private ArrayList<ArrayList<String>> attacks = new ArrayList<>(); // this will store the attacks as an ArrayList that contains String ArrayLists
+    public final int maxHp; //this will store the max Hp this pokemon can have
     public Pokemon(String pokemonStat) { // this is the constructor, this will take the stats and attribute them to their seperate variables
         stats = pokemonStat.split(","); // this will split the String that contains the stats of the pokemon
         name = stats[0]; // this will be the name of the pokemon
         hp = Integer.valueOf(stats[1]); // gets the HP of the pokemon
+        maxHp = Integer.valueOf(stats[1]); // gets the HP of the pokemon
         type = stats[2]; // gets the type of the pokemon
         resistance = stats[3]; // gets the resistance of the pokemon
         weakness = stats[4]; // gets the weakness of the pokemon

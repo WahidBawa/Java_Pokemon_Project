@@ -31,27 +31,30 @@ public class Enemy extends Pokemon{ // this is a child class of the Pokemon pare
                         damage = 0;
                         System.out.println(this.getName() + "'s attack has failed!!");
                     }
-                }else if (special.equals("wild storm")){
-                        Random wildstorm_rand = new Random();
-                        int newDamage = 0;
-                        while(true){
-                            if (wildstorm_rand.nextInt(2) == 0) { // if the random number is 0
-                                newDamage += damage; // the damage will be 0 and the attack will fail
-                                System.out.println(this.getName() + "'s attack has done a total of " + newDamage + " damage to " + enemy.getName());
-                            }else{
-                                damage = newDamage; // the damage will be 0 and the attack will fail
-                                break;
-                            }
-                        }
-                    }
+                } 
                 if (this.getType().equals(enemy.getWeakness()) && damage != 0){ // this will check if the user type is the enemy's weakness
-                    System.out.println("This attack will be super effective!!");
                     damage *= 2; // will double the damage
                 } else if (this.getType().equals(enemy.getResistance()) && damage != 0){ // checks if the enemy is resistant to user's pokemon
-                    System.out.println("This attack will not be effective!!");
                     damage /= 2; // halves the damage
                 }
-                System.out.println(this.getName() + " inflicts " + damage + " damage to " + enemy.getName() + "!!");
+                if (special.equals("wild storm")){
+                    Random wildstorm_rand = new Random();
+                    int newDamage = 0;
+                    while(true){
+                        if (wildstorm_rand.nextInt(2) == 0) { // if the random number is 0
+                            newDamage += damage; // the damage will be 0 and the attack will fail
+                            System.out.println(this.getName() + "'s attack has done a total of " + newDamage + " damage to " + enemy.getName());
+                        }else{
+                            damage = newDamage; // the damage will be 0 and the attack will fail
+                            break;
+                        }
+                    }
+                }else System.out.println(this.getName() + " inflicts " + damage + " damage to " + enemy.getName() + "!!");
+                if (this.getType().equals(enemy.getWeakness()) && damage != 0){ // this will check if the user type is the enemy's weakness
+                    System.out.println("This attack is super effective!!");
+                } else if (this.getType().equals(enemy.getResistance()) && damage != 0){ // checks if the enemy is resistant to user's pokemon
+                    System.out.println("This attack is not effective!!");
+                }
                 this.setEnergy(this.getEnergy() - cost);
                 if (special.equals("stun")){ // will check if the attack stuns
                     Random stun_rand = new Random();

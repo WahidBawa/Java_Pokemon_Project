@@ -77,8 +77,8 @@ public class PokemonArena {
                     if (usedPokemon.size() == listOfPokemon.length) break; // if the last pokemon has fainted then the loop will break
                     System.out.println(listOfPokemon.length - usedPokemon.size() + " pokemon are left!");
                     for (Player i : team) i.setEnergy(50); // this will set the energy
-                    System.out.println("\n All of your pokemon have gained 20 HP for defeating " + enemy.getName());
-                    for (Player i : team) i.setHp(i.getHp() + 20 > 50 ? 50 : i.getHp() + 20); // this will add 20 to the pokemon's hp for defeating enemy
+                    System.out.println("\nAll of your pokemon have gained 20 HP for defeating " + enemy.getName());
+                    for (Player i : team) i.setHp(i.getHp() + 20 > i.maxHp ? i.maxHp : i.getHp() + 20); // this will add 20 to the pokemon's hp for defeating enemy
                     enemy = getNewEnemy(listOfPokemon, usedPokemon); // will create a random enemy pokemon object
                     printTeamSelection(team, enemy);
                     fighter = team.get(choosePokemon(team)); // this will let the player choose a pokemon to battle the new enemy
