@@ -22,9 +22,9 @@ public class Pokemon{
         resistance = stats[3]; // gets the resistance of the pokemon
         weakness = stats[4]; // gets the weakness of the pokemon
         numAttacks = Integer.valueOf(stats[5]); // this gets the number of attacks of the pokemon
-        for (int i = 0; i < numAttacks; i++) { // This will loop through the attacks
-            ArrayList<String> tmpAttack = new ArrayList<>(); // this will store the attack stats
-            for (int n = 6 + (4 * i); n < (6 + (4 * i) + 4); n++) { // this will go through the loop and get the information
+        for (int i = 0; i < numAttacks; i++) { // This loop will run for as many attacks as the pokemon has
+            ArrayList<String> tmpAttack = new ArrayList<>(); // this will store the attack
+            for (int n = 6 + (4 * i); n < (6 + (4 * i) + 4); n++) { // this will go through the stats array
                 tmpAttack.add(stats[n]); // adds the stats into the ArrayList
             }
             attacks.add(tmpAttack); //this will add the String ArrayList into a master ArrayList which will hold all of the attacks

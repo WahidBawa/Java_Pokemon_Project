@@ -4,8 +4,14 @@ import java.util.*;
 public class PokemonArena {
     public static ArrayList<Player> team = new ArrayList<>(); //creates ArrayList that holds Player type objects
     public static void main(String[] args) throws FileNotFoundException{ // main method
+        try{
+            String[] winText = new ReadFile("./texts/lose.txt").getArray();
+            for (String i : winText) System.out.println(i); // this prints out the ascii art                    
+        }catch (FileNotFoundException e){ // catches the exception
+            System.out.println("file doesn't exist");
+        }
         String[] pokemon = new ReadFile("pokemon.txt").getArray(); // Creates a String array which stores the lines from file
-        String[] title = new ReadFile("title.txt").getArray(); // Creates a String array which stores the lines from file
+        String[] title = new ReadFile("./texts/title.txt").getArray(); // Creates a String array which stores the lines from file
         for (String i : title) System.out.println(i); // displays the title ascii art
         team = select_team(pokemon, team); // this will let the player create a team
         battlePhase(team, pokemon);// this will begin the battle phase
@@ -36,7 +42,7 @@ public class PokemonArena {
                         String[] pokemonAscii = new ReadFile("./images/" + chosen.getName().toLowerCase() + ".txt").getArray();
                         for (String i : pokemonAscii) System.out.println(i); // this prints out the ascii art                    
                     }catch (FileNotFoundException e){ // catches the exception
-                        System.out.println("pokemon doesn't exist");
+                        System.out.println("pokemon file doesn't exist");
                     }
                     //waits for the player to press enter so that they can see the pokemon ascii
                     System.out.print("Press <Enter>");
@@ -68,7 +74,6 @@ public class PokemonArena {
                 }
                 //the following status effects will be set to false as they last for only one turn 
                 fighter.setStun(false);
-                // fighter.setDisable(false);
                 fighter.setRetreat(false);
                 playerTurnDone = true;
                 turn = 1 - turn; // this will toggle the turn to the opposing side
@@ -83,7 +88,7 @@ public class PokemonArena {
                     printTeamSelection(team, enemy);
                     fighter = team.get(choosePokemon(team)); // this will let the player choose a pokemon to battle the new enemy
                     turn = rand.nextInt(2); // this will randomly choose which side goes first
-                    fighter.setDisable(false);
+                    fighter.setDisable(false); // this will reset disable as the battle has ended
                 }
             }
          
@@ -106,12 +111,22 @@ public class PokemonArena {
                 }
             }
             if (playerTurnDone && enemyTurnDone){
+                System.out.println("All pokemon's energy will increase by 10!!");
                 for (Player i : team) i.setEnergy(i.getEnergy() + (i.getEnergy() == 50 ? 0 : 10)); // this will add ten to the player's pokemon
                 enemy.setEnergy(enemy.getEnergy() + (enemy.getEnergy() == 50 ? 0 : 10)); // increases enemy's energy
                 playerTurnDone = enemyTurnDone = false;
             }
         }
-        System.out.println((team.size() == 0 ? "GAME OVER\nYOU LOST" : "YOU WON!\nCONGRATULATIONS")); //will inform the user if they lost or won
+        try{
+            String[] winText = new ReadFile("./texts/win.txt").getArray();
+            String[] loseText = new ReadFile("./texts/lose.txt").getArray();
+            if (team.size() == 0) for (String i : loseText) System.out.println(i); // this prints out the ascii art
+            else (String i : loseText) System.out.println(i); // this prints out the ascii art
+        }catch (FileNotFoundException e){ // catches the exception
+            System.out.println("file doesn't exist");
+        }
+        // String[] loseText = new ReadFile("./texts/" + chosen.getName().toLowerCase() + ".txt").getArray();
+        // for (String i : winText) System.out.println(i);
     }
 
     public static void printTeamSelection(ArrayList<Player> team, Enemy enemy) {

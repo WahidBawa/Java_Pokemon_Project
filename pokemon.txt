@@ -16,7 +16,7 @@ Gloom,60,leaf, ,fire,2,Poisonpowder,10,10,wild storm,Foul Odor,20,20,disable
 Venonat,40,leaf, ,fire,2,Stun Spore,20,20,stun,Leech Life,0,15,recharge
 Bulbasaur,40,leaf, ,fire,1,Leech Seed,0,0,recharge
 Nidoran,40,leaf, ,fire,1,Horn Hazard,30,40,wild card
-Gengar,80,psychic,fighting, ,1,Dark Mind,30,666666666,disable
+Gengar,777777,GOD, , ,2,Dark Mind,1,777777,stun,Guilt,1,777777,wild storm
 Magmar,50,fire, ,water,2,Fire Punch,30,35, ,Flamethrower,30,50,wild card
 Growlithe,60,fire, ,water,1,Flare,20,30, 
 Vulpix,50,fire, ,water,1,Confuse Ray,20,0,stun

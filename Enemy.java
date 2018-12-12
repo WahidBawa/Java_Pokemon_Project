@@ -14,8 +14,8 @@ public class Enemy extends Pokemon{ // this is a child class of the Pokemon pare
             if (!this.getStun()){ // this will check if the enemy is stunned
                 System.out.println(this.getName() + " is attacking " + enemy.getName());
                 Random rand = new Random();
-                int choice;
-                int cost;
+                int choice; // this will store the random choice
+                int cost; // this will store the cost of the choice
                 while (true){ // this will choose a random attack and will check if it is valid
                     choice = rand.nextInt(this.getNumAttacks()); // will select a random attack for the enemy
                     cost = Integer.valueOf(this.getAttacks().get(choice).get(1)); // gets the cost of the attack
