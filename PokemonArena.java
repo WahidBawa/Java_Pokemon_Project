@@ -4,12 +4,6 @@ import java.util.*;
 public class PokemonArena {
     public static ArrayList<Player> team = new ArrayList<>(); //creates ArrayList that holds Player type objects
     public static void main(String[] args) throws FileNotFoundException{ // main method
-        try{
-            String[] winText = new ReadFile("./texts/lose.txt").getArray();
-            for (String i : winText) System.out.println(i); // this prints out the ascii art                    
-        }catch (FileNotFoundException e){ // catches the exception
-            System.out.println("file doesn't exist");
-        }
         String[] pokemon = new ReadFile("pokemon.txt").getArray(); // Creates a String array which stores the lines from file
         String[] title = new ReadFile("./texts/title.txt").getArray(); // Creates a String array which stores the lines from file
         for (String i : title) System.out.println(i); // displays the title ascii art
@@ -121,7 +115,7 @@ public class PokemonArena {
             String[] winText = new ReadFile("./texts/win.txt").getArray();
             String[] loseText = new ReadFile("./texts/lose.txt").getArray();
             if (team.size() == 0) for (String i : loseText) System.out.println(i); // this prints out the ascii art
-            else (String i : loseText) System.out.println(i); // this prints out the ascii art
+            else for (String i : winText) System.out.println(i); // this prints out the ascii art
         }catch (FileNotFoundException e){ // catches the exception
             System.out.println("file doesn't exist");
         }
