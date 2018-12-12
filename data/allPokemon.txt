@@ -1,4 +1,4 @@
-Bulbasaur,400000,leaf, ,fire,1,Leech Seed,0,200,heal
+Bulbasaur,40,leaf, ,fire,1,Leech Seed,0,200,heal
 Ivysaur,60,leaf, ,fire,2,Vine Whip,30,20, ,Poisonpowder,30,20,wild storm
 Venusaur,100,leaf, ,fire,1,Solarbeam,40,60,wild storm
 Charmander,50,fire, ,water,2,Scratch,10,10, ,Ember,20,30,disable

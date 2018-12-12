@@ -4,7 +4,8 @@ import java.util.*;
 public class PokemonArena {
     public static ArrayList<Player> team = new ArrayList<>(); //creates ArrayList that holds Player type objects
     public static void main(String[] args) throws FileNotFoundException{ // main method
-        String[] pokemon = new ReadFile("pokemon.txt").getArray(); // Creates a String array which stores the lines from file
+        String[] pokemon = new ReadFile("./data/pokemon.txt").getArray(); // Creates a String array which stores the lines from file
+        // String[] pokemon = new ReadFile("./data/allPokemon.txt").getArray(); // Creates a String array which stores the lines from file
         String[] title = new ReadFile("./texts/title.txt").getArray(); // Creates a String array which stores the lines from file
         for (String i : title) System.out.println(i); // displays the title ascii art
         team = select_team(pokemon, team); // this will let the player create a team
@@ -48,7 +49,7 @@ public class PokemonArena {
         }
         return team; // returns the chosen team
     }
-    private static void battlePhase(ArrayList<Player> team, String[] listOfPokemon) {
+    private static void battlePhase(ArrayList<Player> team, String[] listOfPokemon) throws FileNotFoundException{
         ArrayList<String> usedPokemon = new ArrayList<>(); // this will store all used pokemon, fainted or in use
         for (Player i : team) usedPokemon.add(i.getName()); // will add the players chosen pokemon to this ArrayList
         Enemy enemy = getNewEnemy(listOfPokemon, usedPokemon); // This will create a new enemy object which will be chosen randomly
