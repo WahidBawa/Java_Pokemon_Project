@@ -11,8 +11,8 @@ public class PokemonArena {
     public static ArrayList<Player> team = new ArrayList<>(); //creates ArrayList that holds Player type objects
     public static void main(String[] args) throws FileNotFoundException{ // main method
         // use the first one for testing (USE GENGAR AS HE IS GOD TYPE); second for normal playing; 
-        // String[] pokemon = new ReadFile("./data/goodPokemon.txt").getArray(); // Creates a String array which stores the lines from file
-        String[] pokemon = new ReadFile("./data/normalPokemon.txt").getArray(); // Creates a String array which stores the lines from file
+        String[] pokemon = new ReadFile("./data/goodPokemon.txt").getArray(); // Creates a String array which stores the lines from file
+        // String[] pokemon = new ReadFile("./data/normalPokemon.txt").getArray(); // Creates a String array which stores the lines from file
         
         String[] title = new ReadFile("./texts/title.txt").getArray(); // Creates a String array which stores the lines from file
         for (String i : title) System.out.println(i); // displays the title ascii art

@@ -4,13 +4,13 @@ public class Enemy extends Pokemon{ // this is a child class of the Pokemon pare
     public Enemy(String pokemonStat) { // this calls the constructor from the Pokemon parent class
         super(pokemonStat);
     }
-
+    private Random randSkip = new Random();
     public void battle(Player enemy) { // battle method used in the PokemonArena class
         int lowEnergyCounter = 0;
         for (int i = 0; i < this.getNumAttacks(); i++) { //this will check if the enemy has enough energy to attack
             if(Integer.valueOf(this.getAttacks().get(i).get(1)) > this.getEnergy()) lowEnergyCounter++;
         }
-        if (lowEnergyCounter < this.getNumAttacks()){
+        if (lowEnergyCounter < this.getNumAttacks() && randSkip.nextInt(100) < 50){
             if (!this.getStun()){ // this will check if the enemy is stunned
                 System.out.println(this.getName() + " is attacking " + enemy.getName());
                 Random rand = new Random();
@@ -79,8 +79,8 @@ public class Enemy extends Pokemon{ // this is a child class of the Pokemon pare
             }else{ // if the enemy is stunned then the enemy will not attack
                 System.out.println(this.getName() + " is stunned and can't attack!!");
             }
-        }else{ // this will be the message shown if the enemy can't attack due to low energy
-            System.out.println(this.getName() + " doesn't have enough energy to attack!\n");
+        }else{ // this will be the message shown if the enemy can't attack due to low energy or if the enemy is skipping
+            System.out.println(this.getName() + (lowEnergyCounter < this.getNumAttacks() ? (" is skipping it's turn!\n") : (" doesn't have enough energy to attack!\n")));
         }
     }
 }
